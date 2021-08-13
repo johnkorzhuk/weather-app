@@ -99,18 +99,20 @@ const LocationWeatherInfo: React.FC<LocationWeatherInfoProps> = ({
   const theme = useTheme();
   const { state: settingsState } = useSettingsContext();
   const [dailyForcastView, setDailyForcastView] = useState(false);
-  const { data } = useFetchWeather(lat, lon);
+  const { data, isLoading, error } = useFetchWeather(lat, lon);
   const { weather = [], temp } = _pick(weatherData?.current, [
     'weather',
     'temp',
   ]);
   const weatherIcon = _get(weather[0], 'icon');
   const weatherText = _get(weather[0], 'main');
-  const renderDivier =
+  const renderDivider =
     useMediaQuery(theme.breakpoints.up('lg')) && !dailyForcastView;
   const renderCurrentReport =
     (Boolean(weatherIcon) && !dailyForcastView) ||
     (Boolean(weatherIcon) && dailyForcastView && !expanded);
+  const renderPlaceholder = !Boolean(data) && isLoading;
+  const renderDailyForcastView = dailyForcastView && !error && Boolean(data);
   const hourslyForcastData = _get(weatherData, 'hourly', [])
     .map((data, i) => {
       if (i % 2 === 0) {
@@ -131,8 +133,6 @@ const LocationWeatherInfo: React.FC<LocationWeatherInfoProps> = ({
     }
   };
 
-  // console.log(weatherData.daily);
-
   const chartData = useMemo(() => {
     if (weatherData) {
       return weatherData.daily
@@ -150,13 +150,13 @@ const LocationWeatherInfo: React.FC<LocationWeatherInfoProps> = ({
     return [];
   }, [weatherData]);
 
-  console.log(chartData);
-
   useEffect(() => {
     if (data) {
       actions.updateSavedLocation(id, { weatherData: data });
     }
   }, [data]);
+
+  console.log(renderPlaceholder);
 
   return (
     <Accordion
@@ -218,7 +218,7 @@ const LocationWeatherInfo: React.FC<LocationWeatherInfoProps> = ({
           [classes.padding0]: dailyForcastView,
         })}
       >
-        {dailyForcastView ? (
+        {renderDailyForcastView ? (
           <ForecastDaily data={chartData} />
         ) : (
           <div
@@ -227,7 +227,7 @@ const LocationWeatherInfo: React.FC<LocationWeatherInfoProps> = ({
             })}
             style={{ minHeight: expanded ? 90 : 0 }}
           >
-            {renderDivier && (
+            {renderDivider && (
               <Divider orientation="vertical" className={classes.divider} />
             )}
             <Grow in={expanded}>

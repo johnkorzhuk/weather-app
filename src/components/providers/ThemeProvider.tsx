@@ -39,7 +39,7 @@ const ThemeProvider: React.FC<ThemeProviderProps> = ({ children }) => {
           fontWeight: 'bold',
           fontSize: '5rem',
           marginTop: 20,
-          marginBottom: 32,
+          marginBottom: 40,
         },
       },
       overrides: {
@@ -59,8 +59,6 @@ const ThemeProvider: React.FC<ThemeProviderProps> = ({ children }) => {
 
     return nextTheme;
   }, [darkMode]);
-
-  console.log(theme);
 
   return <MuiThemeProvider theme={theme}>{children}</MuiThemeProvider>;
 };

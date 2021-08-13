@@ -94,7 +94,7 @@ const getPlaces = async (query: string) => {
       id: Object.values(d).join(':'),
     }));
   } catch (error) {
-    console.error(error);
+    throw new Error(error);
   }
 };
 
@@ -114,7 +114,7 @@ const getWeatherData = async (lat: number, lon: number) => {
 
     return data;
   } catch (error) {
-    console.error(error);
+    throw new Error(error);
   }
 };
 

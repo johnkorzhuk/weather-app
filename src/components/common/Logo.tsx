@@ -1,6 +1,6 @@
 import React from 'react';
 
-function Icon() {
+const Icon: React.FC = () => {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
@@ -23,6 +23,6 @@ function Icon() {
       ></path>
     </svg>
   );
-}
+};
 
 export default Icon;

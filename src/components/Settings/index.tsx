@@ -10,7 +10,7 @@ import React from 'react';
 
 const useStyles = makeStyles((theme) => ({
   container: {
-    width: 280,
+    maxWidth: 280,
   },
   switch: {
     display: 'flex',
@@ -28,12 +28,6 @@ interface SettingsProps {}
 const Settings: React.FC<SettingsProps> = () => {
   const { state, actions } = useSettingsContext();
   const classes = useStyles();
-
-  console.log(
-    state.themeType === PaletteType.DARK,
-    state.themeType,
-    PaletteType.DARK,
-  );
 
   return (
     <div className={classes.container}>

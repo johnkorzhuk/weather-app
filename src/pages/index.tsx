@@ -1,13 +1,19 @@
+import PrimaryHeading from '@/components/common/PrimaryHeading';
 import PlacesAutoComplete from '@/components/Input/PlacesAutoComplete';
 import LocationList from '@/components/Locations/LocationList';
 import { makeStyles } from '@material-ui/core/styles';
-import Typography from '@material-ui/core/Typography';
 import { PageProps } from 'gatsby';
 import React from 'react';
 
-const useStyles = makeStyles(() => ({
+const useStyles = makeStyles((theme) => ({
   inputContainer: {
-    width: '80%',
+    width: '100%',
+    [theme.breakpoints.up('md')]: {
+      width: '80%',
+    },
+    [theme.breakpoints.up('lg')]: {
+      width: '60%',
+    },
   },
 }));
 
@@ -16,7 +22,7 @@ const Home: React.FC<PageProps> = () => {
 
   return (
     <>
-      <Typography variant="h1">Weather Search</Typography>
+      <PrimaryHeading>Weather Search</PrimaryHeading>
 
       <div className={classes.inputContainer}>
         <PlacesAutoComplete />

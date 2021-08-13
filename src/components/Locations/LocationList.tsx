@@ -8,10 +8,6 @@ const useStyles = makeStyles((theme) => ({
   container: {
     marginTop: theme.spacing(5),
   },
-  locationTitle: {
-    fontSize: '2rem',
-    fontWeight: 'bold',
-  },
 }));
 
 interface LocationListProps {}
