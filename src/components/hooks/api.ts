@@ -1,16 +1,22 @@
 import axios from 'axios';
 import { useQuery } from 'react-query';
 
-export interface LocationResponseData {
+interface LocationResponseData {
   id: string;
   country: string;
   lat: number;
   lon: number;
   name: string;
   state: string;
+  local_names: {
+    [local: string]: string;
+  };
 }
 
-interface WeatherDescription {
+export interface LocationData
+  extends Omit<LocationResponseData, 'local_names'> {}
+
+export interface WeatherDescription {
   description: string;
   icon: string;
   id: number;
@@ -78,30 +84,28 @@ export interface WeatherReponseData {
 }
 
 const getPlaces = async (query: string) => {
-  if (!query) {
-    return;
-  }
+  if (query.length) {
+    try {
+      const { data } = await axios.get<LocationResponseData[]>(
+        `https://api.openweathermap.org/geo/1.0/direct?q=${query}&limit=${10}&appid=${
+          process.env.GATSBY_WEATHER_API_URL
+        }`,
+      );
 
-  try {
-    const { data } = await axios.get(
-      `https://api.openweathermap.org/geo/1.0/direct?q=${query}&limit=${10}&appid=${
-        process.env.GATSBY_WEATHER_API_URL
-      }`,
-    );
-
-    return data.map(({ local_names: _, ...d }) => ({
-      ...d,
-      id: Object.values(d).join(':'),
-    }));
-  } catch (error) {
-    throw new Error(error);
+      return data.map(({ local_names: _, ...d }) => ({
+        ...d,
+        id: Object.values(d).join(':'),
+      }));
+    } catch (error) {
+      throw new Error(error);
+    }
   }
 };
 
 export const usePlacesSearch = (query: string) => {
   const encodedQuery = encodeURIComponent(query);
 
-  return useQuery<LocationResponseData[] | undefined>(query, () => {
+  return useQuery(query, () => {
     return getPlaces(encodedQuery);
   });
 };

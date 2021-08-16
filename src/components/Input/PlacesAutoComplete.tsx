@@ -6,7 +6,7 @@ import SearchIcon from '@material-ui/icons/Search';
 import Autocomplete from '@material-ui/lab/Autocomplete';
 import debounce from 'lodash/debounce';
 import React, { useEffect, useState } from 'react';
-import { LocationResponseData, usePlacesSearch } from '../hooks/api';
+import { LocationData, usePlacesSearch } from '../hooks/api';
 
 const useStyles = makeStyles((theme) => ({
   searchIcon: {
@@ -19,7 +19,7 @@ const INPUT_ID = 'search-input-id';
 
 const PlacesAutocomplete = () => {
   const [open, setOpen] = useState(false);
-  const [options, setOptions] = useState<LocationResponseData[]>([]);
+  const [options, setOptions] = useState<LocationData[]>([]);
   const [search, setSearch] = useState('');
   const [value, setValue] = useState(null);
   const classes = useStyles();
@@ -33,7 +33,7 @@ const PlacesAutocomplete = () => {
 
   const handleItemSelect = (
     _: React.ChangeEvent<any>,
-    newValue: LocationResponseData,
+    newValue: LocationData,
   ) => {
     if (newValue && newValue.id) {
       actions.addSavedLocation(newValue);

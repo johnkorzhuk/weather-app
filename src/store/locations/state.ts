@@ -1,7 +1,4 @@
-import {
-  LocationResponseData,
-  WeatherReponseData,
-} from '@/components/hooks/api';
+import { LocationData, WeatherReponseData } from '@/components/hooks/api';
 import {
   createActionCreators,
   createReducerFunction,
@@ -10,8 +7,9 @@ import {
 import { useReducer } from 'react';
 import { bindActionsCreators } from '../utils';
 
-export interface SavedLocation extends LocationResponseData {
+export interface SavedLocation extends LocationData {
   expanded: boolean;
+  dailyForecastView: boolean;
   weatherData?: WeatherReponseData;
 }
 
@@ -31,6 +29,7 @@ export const INITIAL_STATE: LocationsState = {
       state: 'CA',
       id: 'San Diego:32.7153:-117.1573:US:CA',
       expanded: true,
+      dailyForecastView: false,
     },
     'Los Angeles:34.0522:-118.2437:US:CA': {
       name: 'Los Angeles',
@@ -40,6 +39,7 @@ export const INITIAL_STATE: LocationsState = {
       state: 'CA',
       id: 'Los Angeles:34.0522:-118.2437:US:CA',
       expanded: false,
+      dailyForecastView: false,
     },
     'San Francisco:37.7749:-122.4194:US:CA': {
       name: 'San Francisco',
@@ -49,6 +49,7 @@ export const INITIAL_STATE: LocationsState = {
       state: 'CA',
       id: 'San Francisco:37.7749:-122.4194:US:CA',
       expanded: false,
+      dailyForecastView: false,
     },
   },
 };
@@ -58,12 +59,13 @@ export class LocationsImmerReducer extends ImmerReducer<LocationsState> {
     this.draftState = INITIAL_STATE;
   }
 
-  addSavedLocation(location: LocationResponseData) {
+  addSavedLocation(location: LocationData) {
     this.draftState.savedLocations = {
       ...this.state.savedLocations,
       [location.id]: {
         ...location,
         expanded: true,
+        dailyForecastView: false,
       },
     };
   }

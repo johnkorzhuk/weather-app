@@ -8,21 +8,6 @@ import ToggleButton from '@material-ui/lab/ToggleButton';
 import ToggleButtonGroup from '@material-ui/lab/ToggleButtonGroup';
 import React from 'react';
 
-const useStyles = makeStyles((theme) => ({
-  container: {
-    maxWidth: 280,
-  },
-  switch: {
-    display: 'flex',
-    justifyContent: 'space-between',
-    marginLeft: 0,
-    marginTop: theme.spacing(3),
-  },
-  minWidthButton: {
-    minWidth: 48,
-  },
-}));
-
 interface SettingsProps {}
 
 const Settings: React.FC<SettingsProps> = () => {
@@ -127,5 +112,20 @@ const Settings: React.FC<SettingsProps> = () => {
     </div>
   );
 };
+
+const useStyles = makeStyles((theme) => ({
+  container: {
+    maxWidth: 320,
+  },
+  switch: {
+    display: 'flex',
+    justifyContent: 'space-between',
+    marginLeft: 0,
+    marginTop: theme.spacing(3),
+  },
+  minWidthButton: {
+    minWidth: 48,
+  },
+}));
 
 export default Settings;

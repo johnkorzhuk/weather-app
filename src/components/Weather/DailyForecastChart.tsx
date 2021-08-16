@@ -15,7 +15,7 @@ import {
   YAxis,
 } from 'recharts';
 import { WeatherDataDaily } from '../hooks/api';
-import WeatherIcon from './WeatherIcon';
+import WeatherIcon from '../Weather/WeatherIcon';
 
 const useStyles = makeStyles((theme) => ({
   outer: {
@@ -53,7 +53,7 @@ const CustomTooltip: React.FC<{
     },
   }))();
   if (active && payload && payload.length) {
-    const { temp, date, weather }: ForecastDailyValue = _get(
+    const { temp, date, weather }: DailyForecastChartValue = _get(
       payload[0],
       'payload',
     );
@@ -90,17 +90,17 @@ const CustomTooltip: React.FC<{
   return null;
 };
 
-interface ForecastDailyValue {
+interface DailyForecastChartValue {
   date: number;
   temp: string[];
   weather: WeatherDataDaily['weather'][0];
 }
 
-interface ForecastDailyProps {
-  data: Array<ForecastDailyValue>;
+interface DailyForecastChartProps {
+  data: Array<DailyForecastChartValue>;
 }
 
-const ForecastDaily: React.FC<ForecastDailyProps> = ({ data }) => {
+const DailyForecastChart: React.FC<DailyForecastChartProps> = ({ data }) => {
   const classes = useStyles();
   const theme = useTheme();
   // ResponsiveContainer is bugged, wont resize
@@ -145,4 +145,4 @@ const ForecastDaily: React.FC<ForecastDailyProps> = ({ data }) => {
   );
 };
 
-export default ForecastDaily;
+export default DailyForecastChart;

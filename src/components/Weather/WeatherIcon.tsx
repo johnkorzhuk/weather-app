@@ -7,6 +7,7 @@ import OpenWeatherIcon from 'react-open-weather-icons';
 const useStyles = makeStyles((theme) => ({
   weatherIcon: {
     filter: `invert(${theme.palette.type === PaletteType.DARK ? 1 : 0})`,
+    display: 'flex',
   },
 }));
 
@@ -24,9 +25,9 @@ const WeatherIcon: React.FC<WeatherIconProps> = ({
 
   return (
     <OpenWeatherIcon
-      {...props}
       name={iconCode}
       className={clsx(classes.weatherIcon, className)}
+      {...props}
     />
   );
 };
