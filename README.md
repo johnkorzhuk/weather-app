@@ -1,4 +1,10 @@
-# gatsby-starter-ts Boilerplate README.md:
+[Production build on Netlify](https://nifty-fermi-14430d.netlify.app/)
+
+### Local dev build: `npm run start`
+
+### Local prod build: `npm run serve`
+
+## gatsby-starter-ts Boilerplate README.md:
 
 <p align="center">
   <img src="https://user-images.githubusercontent.com/26466516/107675788-31f54e00-6c77-11eb-96c9-58fd8a4c69ac.png" alt="Gatsby and TypeScript">
